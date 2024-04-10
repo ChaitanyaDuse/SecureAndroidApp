@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SecureAndroidApp</string>
+    <string name="sscreen_lock_status">Screen Lock is \"%s\"</string>
+</resources>
