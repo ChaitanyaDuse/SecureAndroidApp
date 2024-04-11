@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
             val intent = getIntentToScreenLock()
             startActivity(intent);
         }
+        findViewById<TextView>(R.id.device_emulator_status).text = getDeviceEmulatorStatusScreen(
+            isEmulator()
+        )
     }
 
     override fun onResume() {
@@ -31,8 +34,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getScreenLockEnabledString(isEnabled: Boolean): String {
+    private fun getScreenLockEnabledString(isEnabled: Boolean): String {
         val isEnabledStr = if (isEnabled) "Enabled" else "Disabled"
         return String.format(getString(R.string.sscreen_lock_status), isEnabledStr)
+    }
+
+    private fun getDeviceEmulatorStatusScreen(isEmulator: Boolean): String {
+        val deviceEnabledString = if (isEmulator) "is" else "is not"
+        return String.format(getString(R.string.emulator_status), deviceEnabledString)
     }
 }

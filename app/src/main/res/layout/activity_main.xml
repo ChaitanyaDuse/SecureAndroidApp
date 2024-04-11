@@ -27,4 +27,18 @@
         android:padding="10dp"
         android:text="Set Screen Lock" />
 
+
+    <TextView
+        android:id="@+id/device_emulator_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navigate_user_to_settings_screen"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/emulator_status"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+
 </RelativeLayout>
