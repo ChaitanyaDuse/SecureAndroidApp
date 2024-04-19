@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.debunrebuild.secureandroidapp.R.id.usb_debugging_status_check_btn
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +21,22 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.navigate_user_to_settings_screen).setOnClickListener {
             val intent = getIntentToScreenLock()
-            startActivity(intent);
+            startActivity(intent)
         }
         findViewById<TextView>(R.id.device_emulator_status).text = getDeviceEmulatorStatusScreen(
             isEmulator()
         )
+
+        findViewById<TextView>(R.id.usb_debugging_status_text).text = getUSBDebuggingStatusString(
+            isUsbDebuggingEnabled(applicationContext)
+        )
+
+        findViewById<Button>(usb_debugging_status_check_btn).setOnClickListener {
+            findViewById<TextView>(R.id.usb_debugging_status_text).text =
+                getUSBDebuggingStatusString(
+                    isUsbDebuggingEnabled(applicationContext)
+                )
+        }
     }
 
     override fun onResume() {
@@ -42,5 +54,9 @@ class MainActivity : AppCompatActivity() {
     private fun getDeviceEmulatorStatusScreen(isEmulator: Boolean): String {
         val deviceEnabledString = if (isEmulator) "is" else "is not"
         return String.format(getString(R.string.emulator_status), deviceEnabledString)
+    }
+
+    private fun getUSBDebuggingStatusString(isUSbDebuggingEnabled: Boolean): String {
+        return if (isUSbDebuggingEnabled) return "ON" else "OFF"
     }
 }
