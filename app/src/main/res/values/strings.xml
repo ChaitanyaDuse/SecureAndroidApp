@@ -2,4 +2,6 @@
     <string name="app_name">SecureAndroidApp</string>
     <string name="sscreen_lock_status">Screen Lock is \"%s\"</string>
     <string name="emulator_status">Device %s Emulator</string>
+    <string name="set_screen_lock">Set Screen Lock</string>
+    <string name="refresh_usb_debugging_status_is">Refresh, USB Debugging Status is</string>
 </resources>
