@@ -1,8 +1,10 @@
 package com.debunrebuild.secureandroidapp
 
+import android.app.Activity.ScreenCaptureCallback
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -59,5 +61,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUSBDebuggingStatusString(isUSbDebuggingEnabled: Boolean): String {
         return if (isUSbDebuggingEnabled) return "ON" else "OFF"
+    }
+
+    val screenCaptureCallback = ScreenCaptureCallback {
+        Toast.makeText(this, "Screenshot Captured", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Pass in the callback created in the previous step
+        // and the intended callback executor (e.g. Activity's mainExecutor).
+        registerScreenCaptureCallback(mainExecutor, screenCaptureCallback)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterScreenCaptureCallback(screenCaptureCallback)
     }
 }
