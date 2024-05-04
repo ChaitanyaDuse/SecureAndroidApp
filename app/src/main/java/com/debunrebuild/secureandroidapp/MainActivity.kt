@@ -1,6 +1,5 @@
 package com.debunrebuild.secureandroidapp
 
-import android.app.Activity.ScreenCaptureCallback
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -12,10 +11,16 @@ import androidx.core.view.WindowInsetsCompat
 import com.debunrebuild.secureandroidapp.R.id.usb_debugging_status_check_btn
 
 class MainActivity : AppCompatActivity() {
+
+/*    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    var screenCaptureCallback  = ScreenCaptureCallback {
+        Toast.makeText(this, "Screenshot Captured", Toast.LENGTH_LONG).show()
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        preventScreenCapture(this)
+        //preventScreenCapture(this)
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -40,6 +45,32 @@ class MainActivity : AppCompatActivity() {
                     isUsbDebuggingEnabled(applicationContext)
                 )
         }
+        val biometricLoginButton =
+            findViewById<Button>(R.id.biometric_login)
+        biometricLoginButton.setOnClickListener {
+            checkBiometricAuthenticationAvailability(this, object : BioMetricAuthCallBack {
+                override fun onSuccess() {
+                    Toast.makeText(applicationContext,
+                        "Authentication succeeded!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                override fun onError() {
+                    Toast.makeText(applicationContext,
+                        "Authentication Error!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }, BioMetricAuthOptions
+                .Builder()
+                //.forceBiometricOnly( "My hands are wet")
+                .setMessage("Authenticate with fingerprint or facial recognition")
+                .setTitle("Authenticate with fingerprint or facial recognition")
+                .build())
+            //biometricPrompt.authenticate(promptInfo)
+        }
+
+        //biometric()
     }
 
     override fun onResume() {
@@ -61,21 +92,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUSBDebuggingStatusString(isUSbDebuggingEnabled: Boolean): String {
         return if (isUSbDebuggingEnabled) return "ON" else "OFF"
-    }
-
-    val screenCaptureCallback = ScreenCaptureCallback {
-        Toast.makeText(this, "Screenshot Captured", Toast.LENGTH_LONG).show()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        // Pass in the callback created in the previous step
-        // and the intended callback executor (e.g. Activity's mainExecutor).
-        registerScreenCaptureCallback(mainExecutor, screenCaptureCallback)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterScreenCaptureCallback(screenCaptureCallback)
     }
 }

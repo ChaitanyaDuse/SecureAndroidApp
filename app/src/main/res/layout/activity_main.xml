@@ -64,7 +64,17 @@
             android:gravity="start"
             android:padding="5dp"
             tools:text="ON" />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/biometric_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usb_debugging_status"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Open Biometric Prompt" />
 
 
 </RelativeLayout>
