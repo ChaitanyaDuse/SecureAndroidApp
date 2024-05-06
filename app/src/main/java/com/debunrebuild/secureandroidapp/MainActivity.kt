@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
             }, BioMetricAuthOptions
                 .Builder()
-                //.forceBiometricOnly( "My hands are wet")
+                .forceBiometricOnly( "Will try later, My hands are wet")
                 .setMessage("Authenticate with fingerprint or facial recognition")
                 .setTitle("Authenticate with fingerprint or facial recognition")
                 .build())

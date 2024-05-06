@@ -44,7 +44,6 @@ fun checkBiometricAuthenticationAvailability(
             val authAvailabilityResult = activity.registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult(),
                 ActivityResultCallback { result ->
-                    //TODO success or failure
                     Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
 
                 })
@@ -145,23 +144,23 @@ class BioMetricAuthOptions() {
         private var message: String = "Please Authenticate using Biometric prompt to access"
         private var negativeMessage: String = ""
         private var enrollIfNotEnrolled = true
-        fun forceBiometricOnly(negativeMessage: String) : Builder {
+        fun forceBiometricOnly(negativeMessage: String): Builder {
             forceBiometric = true
             this.negativeMessage = negativeMessage
             return this
         }
 
-        fun setTitle(title: String) : Builder {
+        fun setTitle(title: String): Builder {
             this.title = title
             return this
         }
 
-        fun setMessage(message: String) : Builder{
+        fun setMessage(message: String): Builder {
             this.message = message
             return this
         }
 
-        fun shouldTryToEnrollOnError(shouldEnroll : Boolean) {
+        fun shouldTryToEnrollOnError(shouldEnroll: Boolean) {
             enrollIfNotEnrolled = shouldEnroll
         }
 
